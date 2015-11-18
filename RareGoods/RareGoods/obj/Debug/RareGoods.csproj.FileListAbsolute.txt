@@ -1,0 +1,14 @@
+c:\users\mr\documents\visual studio 2015\Projects\RareGoods\RareGoods\bin\Debug\RareGoods.exe.config
+c:\users\mr\documents\visual studio 2015\Projects\RareGoods\RareGoods\bin\Debug\RareGoods.exe
+c:\users\mr\documents\visual studio 2015\Projects\RareGoods\RareGoods\bin\Debug\RareGoods.pdb
+c:\users\mr\documents\visual studio 2015\Projects\RareGoods\RareGoods\obj\Debug\RareGoods.csprojResolveAssemblyReference.cache
+c:\users\mr\documents\visual studio 2015\Projects\RareGoods\RareGoods\obj\Debug\MainWindow.g.cs
+c:\users\mr\documents\visual studio 2015\Projects\RareGoods\RareGoods\obj\Debug\App.g.cs
+c:\users\mr\documents\visual studio 2015\Projects\RareGoods\RareGoods\obj\Debug\RareGoods_MarkupCompile.cache
+c:\users\mr\documents\visual studio 2015\Projects\RareGoods\RareGoods\obj\Debug\RareGoods_MarkupCompile.lref
+c:\users\mr\documents\visual studio 2015\Projects\RareGoods\RareGoods\obj\Debug\MainWindow.baml
+c:\users\mr\documents\visual studio 2015\Projects\RareGoods\RareGoods\obj\Debug\RareGoods.g.resources
+c:\users\mr\documents\visual studio 2015\Projects\RareGoods\RareGoods\obj\Debug\RareGoods.Properties.Resources.resources
+c:\users\mr\documents\visual studio 2015\Projects\RareGoods\RareGoods\obj\Debug\RareGoods.csproj.GenerateResource.Cache
+c:\users\mr\documents\visual studio 2015\Projects\RareGoods\RareGoods\obj\Debug\RareGoods.exe
+c:\users\mr\documents\visual studio 2015\Projects\RareGoods\RareGoods\obj\Debug\RareGoods.pdb
