@@ -26,6 +26,8 @@ namespace RareGoods
         private Dictionary<int,double[]> distance = new Dictionary<int, double[]>();
         private Dictionary<int,int[]> distanceOrder = new Dictionary<int, int[]>(); 
         private Dictionary<int,string[]> distanceSystem = new Dictionary<int, string[]>();
+        private Dictionary<int, double> Rotation = new Dictionary<int, double>();
+
 
         List<string> starSystemList = new List<string>();
         List<string> stationList = new List<string>();
@@ -42,6 +44,8 @@ namespace RareGoods
             InitializeComponent();
 
             RawData();
+
+            setRotation();
 
             setDistance();
 
@@ -626,7 +630,9 @@ namespace RareGoods
             double startX = 0;
             double startY = 0;
             double startZ = 0;
-       
+
+            Dictionary<int, double> tempRotation = new Dictionary<int, double>();
+
             foreach (var startLoc in location)
             {
                 double[] start = startLoc.Value;
@@ -635,7 +641,7 @@ namespace RareGoods
                 startY = start[1];
                 startZ = start[2];
 
-                Dictionary<int, double> temp = new Dictionary<int, double>();
+                Dictionary<int, double> tempDistance = new Dictionary<int, double>();
 
                 double endX = 0;
                 double endY = 0;
@@ -649,17 +655,17 @@ namespace RareGoods
                     endY = end[1];
                     endZ = end[2];
 
-                    temp[endLoc.Key] = calculateDistance(startX, startY, startZ, endX, endY, endZ); 
-                   
+                    tempDistance[endLoc.Key] = calculateDistance(startX, startY, startZ, endX, endY, endZ);
+                    
                 }
 
-                var sortedDistance = from pair in temp orderby pair.Value ascending select pair;
+                var sortedDistance = from pair in tempDistance orderby pair.Value ascending select pair;
 
                 int keyCount = 0;
 
                 int[] sortedKeys = new int[location.Count];
                 double[] sortedValues = new double[location.Count];
-               
+ 
                 foreach (KeyValuePair<int,double> pair in sortedDistance)
                 {
                     sortedKeys[keyCount] = pair.Key;
@@ -673,6 +679,7 @@ namespace RareGoods
 
                 int[] locationKey = sortedKeys;
                 double[] distanceNames = sortedValues;
+                
                 string[] systemNames = new string[locationKey.Length];
 
                 for (int step=0;step<locationKey.Length;step+=1)
@@ -683,13 +690,49 @@ namespace RareGoods
 
                     string systemName;
                     double distanceString = distanceNames[step];
-
+                    double rotationString = Rotation[systemID];
                     starSystem.TryGetValue(systemID , out systemName);
-                    systemNames[step] = systemName+"\n["+distanceString.ToString("##.##")+"]";
+                    systemNames[step] = systemName+"\n["+distanceString.ToString("##.##")+" : "+rotationString.ToString("##.##")+"]";
 
                 }
                 
                 distanceSystem[startLoc.Key] = systemNames;
+
+            }
+
+        }
+
+        private void setRotation()
+        {
+            double startX = 0;
+            double startY = 0;
+            double startZ = 0;
+
+            
+
+            foreach (var startLoc in location)
+            {
+                double[] start = startLoc.Value;
+
+                startX = start[0];
+                startY = start[1];
+                startZ = start[2];
+
+                double endX = 0;
+                double endY = 0;
+                double endZ = 0;
+
+                foreach (var endLoc in location)
+                {
+                    double[] end = endLoc.Value;
+
+                    endX = end[0];
+                    endY = end[1];
+                    endZ = end[2];
+
+                    Rotation[endLoc.Key] = calculateRotation(startX, startY, startZ, endX, endY, endZ);
+
+                }
 
             }
 
@@ -793,18 +836,21 @@ namespace RareGoods
 
             currentSystemID = 0;
 
-            Jump(currentSystemID,"small");
+            Jump(currentSystemID,"25");
             route.Text += "----------------\n";
-            Jump(currentSystemID,"medium");
+            Jump(currentSystemID,"50");
             route.Text += "----------------\n";
-            Jump(currentSystemID, "big");
+            Jump(currentSystemID, "100");
             route.Text += "----------------\n";
-            Jump(currentSystemID, "small");
+            Jump(currentSystemID, "25");
             route.Text += "----------------\n";
-            Jump(currentSystemID, "medium");
+            Jump(currentSystemID, "50");
             route.Text += "----------------\n";
-            Jump(currentSystemID, "big");
+            Jump(currentSystemID, "100");
             route.Text += "----------------\n";
+            Jump(currentSystemID, "200");
+            route.Text += "----------------\n";
+            
         }
 
         private void Jump(int currentID,string jump)
@@ -818,19 +864,25 @@ namespace RareGoods
             int maxStep = 0;
             int jumpRange = 0;
 
-            if (jump == "small")
+            if (jump == "25")
+            {
+                maxStep = starSystem.Count;
+                jumpRange = 25;
+            }
+
+            if (jump == "50")
             {
                 maxStep = starSystem.Count;
                 jumpRange = 50;
             }
 
-            if (jump == "medium")
+            if (jump == "100")
             {
                 maxStep = 2;
                 jumpRange = 100;
             }
 
-            if (jump == "big")
+            if (jump == "200")
             {
                 maxStep = 2;
                 jumpRange = 200;
@@ -853,6 +905,7 @@ namespace RareGoods
 
                     bool jumpCheck = false;
 
+                    if (jumpRange == 25) jumpCheck = nextDistance <= 25;
                     if (jumpRange == 50) jumpCheck = nextDistance <= 50;
                     if (jumpRange == 100) jumpCheck = nextDistance >= 100;
                     if (jumpRange == 200) jumpCheck = nextDistance >= 200;
@@ -884,10 +937,13 @@ namespace RareGoods
 
                         break;
                     }
+
                     count += 1;
 
                 }
+
             }
+
         }
 
         private string sellCheck(int currentID)
@@ -915,11 +971,35 @@ namespace RareGoods
                         }
                     }
                 }
-
             }
-                
 
-                return sellItem;
+             return sellItem;
+
+        }
+
+        private double calculateRotation(double startX, double startY, double startZ, double endX, double endY,double endZ)
+        {
+            double rotation = 0;
+
+            double rad = 360/(Math.PI*2);
+
+            double distanceX = 0;
+            double distanceY = 0;
+            double distanceZ = 0;
+
+            if (startX < 0 && endX < 0) distanceX = Math.Min(startX, endX) + Math.Abs(Math.Max(startX, endX));
+            if (startY < 0 && endY < 0) distanceY = Math.Min(startY, endY) + Math.Abs(Math.Max(startY, endY));
+            if (startZ < 0 && endZ < 0) distanceZ = Math.Min(startZ, endZ) + Math.Abs(Math.Max(startZ, endZ));
+
+            if ((startX < 0 && endX > 0) || (startX > 0 && endX < 0)) distanceX = Math.Abs(Math.Min(startX, endX)) + Math.Max(startX, endX);
+            if ((startY < 0 && endY > 0) || (startY > 0 && endY < 0)) distanceY = Math.Abs(Math.Min(startY, endY)) + Math.Max(startY, endY);
+            if ((startZ < 0 && endZ > 0) || (startZ > 0 && endZ < 0)) distanceZ = Math.Abs(Math.Min(startZ, endZ)) + Math.Max(startZ, endZ);
+
+            rotation = (Math.Tan(distanceX / distanceZ)) * rad;
+
+            return rotation;
+
+
         }
 
         private double calculateDistance(double startX, double startY, double startZ, double endX, double endY,double endZ)
@@ -948,49 +1028,11 @@ namespace RareGoods
             distance = Math.Pow(distance, 2) + Math.Pow(distanceY, 2);
             distance = Math.Sqrt(distance);
 
+          // rotation = (Math.Tan(distance / distanceZ)) * rad;
+
             return distance;
         }
 
-        private Point convert3D(double x, double y, double z, double panX,double panY,double panZ, double centerX, double centerY, double cameraX,
-            double cameraY, double cameraZ,double zoom)
-        {
-            Point point = new Point();
-
-            double tempX=0;
-            double tempY=0;
-            double tempZ=0;
-
-            double rad = 360/(2*Math.PI);
-
-            panX /= rad;
-            panY /= rad;
-            panZ /= rad;
-
-            x = x + cameraX;
-            y = y + cameraY;
-            z = z + cameraZ;
-
-            tempX = x*Math.Cos(panX) - z*Math.Sin(panX);
-
-            tempZ = x * Math.Sin(panX) + z * Math.Cos(panX);
-
-            tempY = y*Math.Cos(panY) - tempZ*Math.Sin(panY);
-
-            z = tempY*Math.Cos(panY) - tempZ*Math.Sin(panY);
-
-            x = tempX*Math.Cos(panZ) - tempY*Math.Sin(panZ);
-
-            y = tempX*Math.Sin(panZ) + tempY*Math.Cos(panZ);
-
-            if (z > 0)
-            {
-                point.X = x/z*zoom + centerX;
-                point.Y = y/z*zoom + centerY;
-            }
-
-            return point;
-
-        }
 
         public class SystemData
         {
