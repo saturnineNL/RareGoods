@@ -17,6 +17,7 @@ namespace RareGoods.RawData
         private readonly Dictionary<int, int> stationDistances = new Dictionary<int, int>();
         private readonly Dictionary<int, string> goodsNames = new Dictionary<int, string>();
         private readonly Dictionary<int, int> goodsPrices = new Dictionary<int, int>();
+        private readonly Dictionary<int,int[]> goodsAmount = new Dictionary<int, int[]>(); 
 
       //  public Dictionary<int, StarSystem> starSystemData = new Dictionary<int, StarSystem>();
 
@@ -30,6 +31,7 @@ namespace RareGoods.RawData
 
             GoodsNameData();
             GoodsPriceData();
+            GoodsAmountData();
 
             InitData();
 
@@ -723,13 +725,132 @@ namespace RareGoods.RawData
 
         }
 
+        private void GoodsAmountData()
+        {
+            goodsAmount.Add(0, new int[] {1, 15});
+            goodsAmount.Add(1, new int[] {4, 4});
+            goodsAmount.Add(2, new int[] {11, 11});
+            goodsAmount.Add(3, new int[] {0, 9});
+            goodsAmount.Add(4, new int[] {3, 15});
+            goodsAmount.Add(5, new int[] {4, 4});
+            goodsAmount.Add(6, new int[] {9, 14});
+            goodsAmount.Add(7, new int[] {1, 6});
+            goodsAmount.Add(8, new int[] {2, 22});
+            goodsAmount.Add(9, new int[] {2, 7});
+            goodsAmount.Add(10, new int[] {0, 11});
+            goodsAmount.Add(11, new int[] {2, 11});
+            goodsAmount.Add(12, new int[] {1, 6});
+            goodsAmount.Add(13, new int[] {1, 5});
+            goodsAmount.Add(14, new int[] {2, 10});
+            goodsAmount.Add(15, new int[] {16, 27});
+            goodsAmount.Add(16, new int[] {4, 5});
+            goodsAmount.Add(17, new int[] {3, 6});
+            goodsAmount.Add(18, new int[] {5, 11});
+            goodsAmount.Add(19, new int[] {2, 3});
+            goodsAmount.Add(20, new int[] {5, 12});
+            goodsAmount.Add(21, new int[] {4, 14});
+            goodsAmount.Add(22, new int[] {2, 8});
+            goodsAmount.Add(23, new int[] {11, 11});
+            goodsAmount.Add(24, new int[] {2, 17});
+            goodsAmount.Add(25, new int[] {2, 5});
+            goodsAmount.Add(26, new int[] {1, 10});
+            goodsAmount.Add(27, new int[] {2, 4});
+            goodsAmount.Add(28, new int[] {3, 9});
+            goodsAmount.Add(29, new int[] {1, 7});
+            goodsAmount.Add(30, new int[] {1, 6});
+            goodsAmount.Add(31, new int[] {1, 10});
+            goodsAmount.Add(32, new int[] {1, 7});
+            goodsAmount.Add(33, new int[] {2, 10});
+            goodsAmount.Add(34, new int[] {26, 26});
+            goodsAmount.Add(35, new int[] {3, 17});
+            goodsAmount.Add(36, new int[] {9, 22});
+            goodsAmount.Add(37, new int[] {3, 11});
+            goodsAmount.Add(38, new int[] {1, 8});
+            goodsAmount.Add(39, new int[] {1, 2});
+            goodsAmount.Add(40, new int[] {2, 6});
+            goodsAmount.Add(41, new int[] {1, 6});
+            goodsAmount.Add(42, new int[] {1, 3});
+            goodsAmount.Add(43, new int[] {4, 12});
+            goodsAmount.Add(44, new int[] {1, 11});
+            goodsAmount.Add(45, new int[] {13, 13});
+            goodsAmount.Add(46, new int[] {1, 18});
+            goodsAmount.Add(47, new int[] {1, 6});
+            goodsAmount.Add(48, new int[] {1, 14});
+            goodsAmount.Add(49, new int[] {2, 7});
+            goodsAmount.Add(50, new int[] {1, 6});
+            goodsAmount.Add(51, new int[] {2, 16});
+            goodsAmount.Add(52, new int[] {4, 24});
+            goodsAmount.Add(53, new int[] {2, 9});
+            goodsAmount.Add(54, new int[] {1, 4});
+            goodsAmount.Add(55, new int[] {1, 8});
+            goodsAmount.Add(56, new int[] {0, 0});
+            goodsAmount.Add(57, new int[] {2, 5});
+            goodsAmount.Add(58, new int[] {7, 11});
+            goodsAmount.Add(59, new int[] {1, 1});
+            goodsAmount.Add(60, new int[] {1, 12});
+            goodsAmount.Add(61, new int[] {6, 14});
+            goodsAmount.Add(62, new int[] {4, 7});
+            goodsAmount.Add(63, new int[] {3, 5});
+            goodsAmount.Add(64, new int[] {1, 10});
+            goodsAmount.Add(65, new int[] {2, 7});
+            goodsAmount.Add(66, new int[] {3, 11});
+            goodsAmount.Add(67, new int[] {13, 13});
+            goodsAmount.Add(68, new int[] {0, 0});
+            goodsAmount.Add(69, new int[] {18, 18});
+            goodsAmount.Add(70, new int[] {1, 3});
+            goodsAmount.Add(71, new int[] {3, 7});
+            goodsAmount.Add(72, new int[] {3, 5});
+            goodsAmount.Add(73, new int[] {11, 19});
+            goodsAmount.Add(74, new int[] {6, 7});
+            goodsAmount.Add(75, new int[] {3, 5});
+            goodsAmount.Add(76, new int[] {2, 9});
+            goodsAmount.Add(77, new int[] {1, 4});
+            goodsAmount.Add(78, new int[] {7, 7});
+            goodsAmount.Add(79, new int[] {1, 9});
+            goodsAmount.Add(80, new int[] {6, 10});
+            goodsAmount.Add(81, new int[] {1, 2});
+            goodsAmount.Add(82, new int[] {1, 6});
+            goodsAmount.Add(83, new int[] {6, 27});
+            goodsAmount.Add(84, new int[] {5, 6});
+            goodsAmount.Add(85, new int[] {3, 5});
+            goodsAmount.Add(86, new int[] {1, 17});
+            goodsAmount.Add(87, new int[] {4, 6});
+            goodsAmount.Add(88, new int[] {1, 5});
+            goodsAmount.Add(89, new int[] {1, 7});
+            goodsAmount.Add(90, new int[] {0, 0});
+            goodsAmount.Add(91, new int[] {1, 1});
+            goodsAmount.Add(92, new int[] {9, 9});
+            goodsAmount.Add(93, new int[] {2, 14});
+            goodsAmount.Add(94, new int[] {3, 14});
+            goodsAmount.Add(95, new int[] {3, 10});
+            goodsAmount.Add(96, new int[] {4, 7});
+            goodsAmount.Add(97, new int[] {2, 15});
+            goodsAmount.Add(98, new int[] {3, 10});
+            goodsAmount.Add(99, new int[] {2, 6});
+            goodsAmount.Add(100, new int[] {2, 2});
+            goodsAmount.Add(101, new int[] {3, 3});
+            goodsAmount.Add(102, new int[] {5, 10});
+            goodsAmount.Add(103, new int[] {2, 5});
+            goodsAmount.Add(104, new int[] {0, 0});
+            goodsAmount.Add(105, new int[] {1, 16});
+            goodsAmount.Add(106, new int[] {3, 10});
+            goodsAmount.Add(107, new int[] {1, 1});
+            goodsAmount.Add(108, new int[] {1, 1});
+            goodsAmount.Add(109, new int[] {1, 18});
+
+        }
+
         private void InitData()
         {
+            
             StarSystem[] tempData = new StarSystem[starSystemNames.Count];
 
             foreach (KeyValuePair<int, string> system in starSystemNames)
             {
-                tempData[system.Key].systemID = system.Key;
+                
+                tempData[system.Key]=new StarSystem();
+                    
+                tempData[system.Key].SystemID = system.Key;
                 tempData[system.Key].SystemName = system.Value;
             }
 
@@ -762,7 +883,15 @@ namespace RareGoods.RawData
                 tempData[prices.Key].GoodsPrices = prices.Value;
             }
 
-            starSystemDataSet = starSystemNames.ToDictionary(system => tempData[system.Key].systemID, system => tempData[system.Key]);
+            foreach (KeyValuePair<int,int[]> amount in goodsAmount)
+            {
+                tempData[amount.Key].AmountTable = amount.Value;
+
+                tempData[amount.Key].MinAmount = amount.Value[0];
+                tempData[amount.Key].MaxAmount = amount.Value[1];
+                
+            }
+            starSystemDataSet = starSystemNames.ToDictionary(system => tempData[system.Key].SystemID, system => tempData[system.Key]);
 
             tempData = null;
         }
@@ -773,7 +902,7 @@ namespace RareGoods.RawData
 
     public class StarSystem
     {
-        public int systemID { get; set; }
+        public int SystemID { get; set; }
 
         public string SystemName { get; set; }
         public string StationName { get; set; }
@@ -782,6 +911,13 @@ namespace RareGoods.RawData
         public double[] Location { get; set; }
 
         public double[] DistanceTable { get; set; }
+        public int[] SortedSystems { get; set; }
+        public double[] SortedDistances { get; set; }
+
+        public string[] DisplayDistances { get; set; }
+        public string DisplaySystem { get; set; }
+        public string DisplayStation { get; set; }
+        public string DisplayGoods { get; set; }
 
         public double[] VectorXTable { get; set; }
         public double[] VectorYTable { get; set; }
@@ -796,6 +932,9 @@ namespace RareGoods.RawData
         public double StationDistance { get; set; }
 
         public int GoodsPrices { get; set; }
+        public int[] AmountTable { get; set; }
+        public int MinAmount { get; set; }
+        public int MaxAmount { get; set; }
 
        
     }
