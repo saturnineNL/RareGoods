@@ -17,6 +17,7 @@ namespace RareGoods.RawData
         private readonly Dictionary<int, int> stationDistances = new Dictionary<int, int>();
         private readonly Dictionary<int, string> goodsNames = new Dictionary<int, string>();
         private readonly Dictionary<int, int> goodsPrices = new Dictionary<int, int>();
+        private readonly Dictionary<int, int> goodsProfit = new Dictionary<int, int>();
         private readonly Dictionary<int,int[]> goodsAmount = new Dictionary<int, int[]>(); 
 
       //  public Dictionary<int, StarSystem> starSystemData = new Dictionary<int, StarSystem>();
@@ -723,6 +724,8 @@ namespace RareGoods.RawData
             goodsPrices.Add(108, 24590);
             goodsPrices.Add(109, 374);
 
+            goodsProfit.Add(0, 15884);
+            goodsProfit.Add(46,15799);
         }
 
         private void GoodsAmountData()
@@ -912,6 +915,8 @@ namespace RareGoods.RawData
 
         public double[] DistanceTable { get; set; }
         public int[] SortedSystems { get; set; }
+        public int[] DestinationSystems { get; set; }
+        public int[] HalfwayPoint { get; set; }
         public double[] SortedDistances { get; set; }
 
         public string[] DisplayDistances { get; set; }

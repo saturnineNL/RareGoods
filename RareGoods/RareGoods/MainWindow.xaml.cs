@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using RareGoods.RawData;
 
@@ -31,7 +32,13 @@ namespace RareGoods
 
             setDistance();
 
+            CalculateDelivery();
+
             CreateView();
+
+
+
+            CalculateRoute();
 
         }
 
@@ -94,24 +101,76 @@ namespace RareGoods
 
                 var sortedDistance = from pair in sortingTable orderby pair.Value select pair;
 
+                int[] sortedSyst = new int[starSystemSet.Count];
                 double[] sortedDist = new double[starSystemSet.Count];
-                string[] sortedSyst = new string[starSystemSet.Count];
+                string[] sortedDisp = new string[starSystemSet.Count];
 
                 int sortCounter = 0;
                
                 foreach (KeyValuePair<int, double> dist in sortedDistance)
                 {
-                    sortedSyst[sortCounter] = starSystemSet[dist.Key].SystemName + "\n" + dist.Value.ToString("F");
+                    sortedSyst[sortCounter] = dist.Key;
                     sortedDist[sortCounter] = dist.Value;
+                    sortedDisp[sortCounter] = starSystemSet[dist.Key].SystemName + "\n" + dist.Value.ToString("F");
+                    
 
                     sortCounter += 1;
                 }
 
+                starSystemSet[origin.Key].SortedSystems = sortedSyst;
                 starSystemSet[origin.Key].SortedDistances = sortedDist;
-                starSystemSet[origin.Key].DisplayDistances = sortedSyst;
+                starSystemSet[origin.Key].DisplayDistances = sortedDisp;
 
             }
 
+        }
+
+        private void CalculateDelivery()
+        {
+            foreach (var destination in starSystemSet)
+            {
+                int currentSystem = destination.Key;
+               
+                double[] examineList = starSystemSet[currentSystem].SortedDistances;
+
+                int[] fullTempList=new int[starSystemSet.Count];
+                int[] halfTempList = new int[starSystemSet.Count];
+
+                int fullDestinationCounter = 0;
+                int halfDestinationCounter = 0;
+
+
+                for (int loop = 0; loop < examineList.Length; loop += 1)
+                {
+
+                    int destinationSystem = starSystemSet[currentSystem].SortedSystems[loop];
+
+                    if (examineList[loop] >= 160 && examineList[loop] <= 180)
+                    {
+                        fullTempList[fullDestinationCounter] = starSystemSet[currentSystem].SortedSystems[loop];
+
+                        fullDestinationCounter += 1;
+                    }
+
+                    if (examineList[loop] >= 75 && examineList[loop] <= 85)
+                    {
+                       halfTempList[halfDestinationCounter] = starSystemSet[currentSystem].SortedSystems[loop];
+
+                        halfDestinationCounter += 1;
+                    }
+
+
+                }
+
+                int[] fullDestinationList = new int[fullDestinationCounter];
+                int[] halfDestinationList= new int[halfDestinationCounter];
+
+                for (int loop = 0; loop < fullDestinationCounter; loop += 1) fullDestinationList[loop] = fullTempList[loop];
+                for (int loop = 0; loop < halfDestinationCounter; loop += 1) halfDestinationList[loop] = halfTempList[loop];
+
+                starSystemSet[currentSystem].DestinationSystems = fullDestinationList;
+                starSystemSet[currentSystem].HalfwayPoint = halfDestinationList;
+            }
         }
 
 
@@ -125,8 +184,6 @@ namespace RareGoods
             GridViewColumn systemName = new GridViewColumn();
             GridViewColumn stationName = new GridViewColumn();
             GridViewColumn goodsName = new GridViewColumn();
-
-            
 
             systemName.Header = "Star System";
             systemName.Width = 150;
@@ -165,9 +222,10 @@ namespace RareGoods
             {
                 starSystemSet[name.Key].DisplaySystem = starSystemSet[name.Key].SystemName + "\n" +starSystemSet[name.Key].GoodsName;
                 starSystemSet[name.Key].DisplayStation = starSystemSet[name.Key].StationName + "\n" + starSystemSet[name.Key].StationDistance;
-                starSystemSet[name.Key].DisplayGoods = starSystemSet[name.Key].GoodsPrices + "  ["+ starSystemSet[name.Key].MinAmount+"-"+ starSystemSet[name.Key].MaxAmount+"]\n" + "[" +
-                                                       (starSystemSet[name.Key].MinAmount* starSystemSet[name.Key].GoodsPrices) + "-" +
-                                                       (starSystemSet[name.Key].MaxAmount * starSystemSet[name.Key].GoodsPrices) + "]";
+                starSystemSet[name.Key].DisplayGoods = starSystemSet[name.Key].GoodsPrices + 
+                    "  [" +  starSystemSet[name.Key].MinAmount+"-"+ starSystemSet[name.Key].MaxAmount+"]\n" + 
+                      "[" + (starSystemSet[name.Key].MinAmount*16) + "K -" +
+                            (starSystemSet[name.Key].MaxAmount * 16) + "K ]";
                                                        
                 stars.Items.Add(new StarSystem()
                 {
@@ -178,6 +236,120 @@ namespace RareGoods
                 });
             }
         }
+
+        private void CalculateRoute()
+        {
+            // distance - stationdistance - jumps - amount - price - expected profit - estimated time
+
+            // find destination from current location
+
+            // find halfpoint between destination and current location
+
+            // 20 - 40 - 80 - 160
+
+
+            /*
+            int maxLoop = starSystemSet.Count;
+
+            double jumpRangeMin = 25;
+            double jumpRangeMax = 34;
+
+            int storageMax = 112;
+
+            int currentSystemID = 0;
+            int currentStorage = 0;
+            double currentJumprange = 34;
+
+            int[] examineSystems = new int[maxLoop];
+            int[] examineJumps = new int[maxLoop];
+            int examineCounter = 0;
+            int jumpCounter = 1;
+
+            int[] matchCount = new int[maxLoop];
+            double[] matchAmount = new double[maxLoop];
+
+            double examineRange = 1*currentJumprange;
+            
+            // fetch all 1 jumps
+
+            for (int fetch = 0; fetch < maxLoop; fetch += 1)
+            {
+                examineRange = jumpCounter * currentJumprange;
+
+                if (starSystemSet[currentSystemID].SortedDistances[fetch] >= examineRange)
+                {
+                    jumpCounter += 1;
+
+                    if (jumpCounter < 4) fetch -= 1;
+                    
+                    else break;
+                }
+
+               else if (starSystemSet[currentSystemID].SortedDistances[fetch] < examineRange)
+                {
+                    examineSystems[examineCounter] = starSystemSet[currentSystemID].SortedSystems[fetch];
+                    examineJumps[examineCounter] = jumpCounter;
+
+                    examineCounter += 1;
+                }
+              
+            }
+
+            route.Text = "";
+
+            int[] matchTable = starSystemSet[currentSystemID].DestinationSystems;
+            
+            for (int show = 0; show < examineCounter; show += 1)
+            {
+
+                int fetchSystem = examineSystems[show];
+
+                string systemList = "";
+
+                for (int loop = 0; loop < starSystemSet[fetchSystem].DestinationSystems.Length; loop += 1)
+                {
+                    if (matchTable.Contains(starSystemSet[fetchSystem].DestinationSystems[loop]))
+                    {
+                        matchCount[starSystemSet[fetchSystem].DestinationSystems[loop]] += 1;
+
+                        matchAmount[starSystemSet[fetchSystem].DestinationSystems[loop]] += ((double)(starSystemSet[fetchSystem].MinAmount + starSystemSet[fetchSystem].MaxAmount) / 2)*16;
+
+            systemList += " ["+starSystemSet[starSystemSet[fetchSystem].DestinationSystems[loop]].SystemName +"-"+
+                            ((double)(starSystemSet[starSystemSet[fetchSystem].DestinationSystems[loop]].MinAmount + starSystemSet[starSystemSet[fetchSystem].DestinationSystems[loop]].MaxAmount) / 2) * 16+
+                                      "] ";
+                    }
+                }
+
+                double minProfit = (double) starSystemSet[fetchSystem].MinAmount*16;
+                double avgProfit =((double) (starSystemSet[fetchSystem].MinAmount + starSystemSet[fetchSystem].MaxAmount)/ 2)*16;
+                double maxProfit = (double) starSystemSet[fetchSystem].MaxAmount*16;
+
+              //  if (systemList != "")
+             //   {
+                    route.Text += "[" + examineJumps[show] + "] "+fetchSystem+":" + starSystemSet[fetchSystem].SystemName + ": " +
+                                  starSystemSet[currentSystemID].SortedDistances[show].ToString("F") + " [" +
+                                  starSystemSet[fetchSystem].StationDistance + "]  estimate: " +
+                                  minProfit + " -> " + avgProfit + " -> " + maxProfit + " delivery:" +
+                                  systemList +
+                                  "\n\n";
+             //   }
+
+            }
+
+            string destinations = "";
+
+            for (int loop = 0; loop < starSystemSet[currentSystemID].DestinationSystems.Length; loop += 1)
+            {
+                int destination = starSystemSet[currentSystemID].DestinationSystems[loop];
+
+                destinations += " ["+destination+":"+starSystemSet[destination].SystemName + "(" + matchCount[destination] + ") - "+ matchAmount[destination] + " ] ";
+                    
+            }
+
+            route.Text += destinations;*/
+        }
+
+   
     }
 }
 
