@@ -915,8 +915,6 @@ namespace RareGoods.RawData
 
         public double[] DistanceTable { get; set; }
         public int[] SortedSystems { get; set; }
-        public int[] DestinationSystems { get; set; }
-        public int[] HalfwayPoint { get; set; }
         public double[] SortedDistances { get; set; }
 
         public string[] DisplayDistances { get; set; }

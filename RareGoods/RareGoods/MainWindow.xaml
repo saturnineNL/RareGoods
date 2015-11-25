@@ -5,18 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RareGoods"
         mc:Ignorable="d"
-        Title="MainWindow"
+        Title="Rare goods Routeplanner"
         Height="960"
         Width="1920"
         WindowStartupLocation="CenterScreen"
         WindowState="Maximized">
-    <Grid >
+    <Grid>
         <ListView x:Name="stars"
                   HorizontalAlignment="Left"
-                  Height="725"
-                  Margin="10,10,0,0"
+                  Height="315"
+                  Margin="330,10,0,0"
                   VerticalAlignment="Top"
-                  Width="1892"
+                  Width="1572"
                   Background="#FFE4E4EC"
                   Foreground="#FF0C2770"
                   ScrollViewer.HorizontalScrollBarVisibility="Auto"
@@ -29,11 +29,33 @@
         </ListView>
         <TextBox x:Name="route"
                  HorizontalAlignment="Left"
-                 Height="149"
-                 Margin="65,770,0,0"
+                 Height="559"
+                 Margin="330,360,0,0"
                  TextWrapping="Wrap"
                  Text=""
                  VerticalAlignment="Top"
-                 Width="1837" />
+                 Width="625"
+                 VerticalScrollBarVisibility="Auto" />
+        <ComboBox x:Name="SelectSystemFrom"
+                  HorizontalAlignment="Left"
+                  Margin="45,10,0,0"
+                  VerticalAlignment="Top"
+                  Width="230"
+                  Height="25"
+                  MaxDropDownHeight="900"
+                  HorizontalContentAlignment="Stretch" />
+        <RichTextBox x:Name="route2"
+                     HorizontalAlignment="Left"
+                     Height="530"
+                     Margin="960,360,0,0"
+                     VerticalAlignment="Top"
+                     Width="942"
+                     VerticalScrollBarVisibility="Auto">
+            <FlowDocument>
+                <Paragraph>
+                    <Run Text="" />
+                </Paragraph>
+            </FlowDocument>
+        </RichTextBox>
     </Grid>
 </Window>
