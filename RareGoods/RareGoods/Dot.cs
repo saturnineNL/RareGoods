@@ -13,7 +13,7 @@ namespace RareGoods
         private double rad = 360 / (Math.PI * 2);
 
         private SolidColorBrush colorBrush = new SolidColorBrush(Color.FromArgb(0x80, 0x40, 0xF0, 0x40));
-        private RadialGradientBrush gradiBrush = new RadialGradientBrush() { GradientStops = new GradientStopCollection { new GradientStop(Colors.White, 0.0), new GradientStop(Colors.Black, 1.0) } };
+        private RadialGradientBrush gradiBrush = new RadialGradientBrush() { GradientStops = new GradientStopCollection { new GradientStop(Color.FromArgb(0x80,0xFF,0xFF,0xFF), 0.0), new GradientStop(Color.FromArgb(0x80,0x00,0x00,0x00), 1.0) } };
 
         private double cx = 0;
         private double cy = 0;
@@ -37,8 +37,8 @@ namespace RareGoods
             get { return cx; }
             set {
                 cx = value;
-                CalculateRadius();
-                CalculateDegree();
+             //   CalculateRadius();
+             //   CalculateDegree();
                 }
             }
 
@@ -47,8 +47,8 @@ namespace RareGoods
             get { return cy; }
             set {
                 cy = value;
-                CalculateRadius();
-                CalculateDegree();
+            //    CalculateRadius();
+            //    CalculateDegree();
                 }
             }
         public double originX
@@ -56,8 +56,8 @@ namespace RareGoods
             get { return ox; }
             set {
                 ox = value;
-                CalculateRadius();
-                CalculateDegree();
+            //    CalculateRadius();
+             //   CalculateDegree();
                 }
             }
 
@@ -66,8 +66,8 @@ namespace RareGoods
             get { return oy; }
             set {
                 oy = value;
-                CalculateRadius();
-                CalculateDegree();
+              //  CalculateRadius();
+             //   CalculateDegree();
                 }
             }
 
@@ -136,10 +136,10 @@ namespace RareGoods
             colorDot.Margin = new Thickness(-colorDot.Width/2, -colorDot.Height/2, 0, 0);
             gradiDot.Margin = new Thickness(-gradiDot.Width/2, -gradiDot.Height/2, 0, 0);
 
-            cx = CalculateX();
-            cy = CalculateY(); 
+          //  cx = CalculateX();
+          //  cy = CalculateY(); 
               
-            drawCanvas.Margin = new Thickness(cx, cy,0,0); 
+            drawCanvas.Margin = new Thickness(ox+cx, oy+cy,0,0); 
 
             drawCanvas.Children.Add(gradiDot);
             drawCanvas.Children.Add(colorDot);

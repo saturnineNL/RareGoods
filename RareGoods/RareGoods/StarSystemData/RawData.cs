@@ -17,8 +17,8 @@ namespace RareGoods.RawData
         private readonly Dictionary<int, int> stationDistances = new Dictionary<int, int>();
         private readonly Dictionary<int, string> goodsNames = new Dictionary<int, string>();
         private readonly Dictionary<int, int> goodsPrices = new Dictionary<int, int>();
-        private readonly Dictionary<int, int> goodsProfit = new Dictionary<int, int>();
         private readonly Dictionary<int,int[]> goodsAmount = new Dictionary<int, int[]>(); 
+        private readonly Dictionary<int,int> blackMarket= new Dictionary<int, int>();
 
       //  public Dictionary<int, StarSystem> starSystemData = new Dictionary<int, StarSystem>();
 
@@ -33,7 +33,7 @@ namespace RareGoods.RawData
             GoodsNameData();
             GoodsPriceData();
             GoodsAmountData();
-
+            BlackMarketData();
             InitData();
 
         }
@@ -724,8 +724,7 @@ namespace RareGoods.RawData
             goodsPrices.Add(108, 24590);
             goodsPrices.Add(109, 374);
 
-            goodsProfit.Add(0, 15884);
-            goodsProfit.Add(46,15799);
+          
         }
 
         private void GoodsAmountData()
@@ -843,64 +842,218 @@ namespace RareGoods.RawData
 
         }
 
+        private void BlackMarketData()
+        {
+
+            blackMarket.Add(0, 1);
+            blackMarket.Add(1, 1);
+            blackMarket.Add(2, 0);
+            blackMarket.Add(3, 1);
+            blackMarket.Add(4, 0);
+            blackMarket.Add(5, 0);
+            blackMarket.Add(6, 1);
+            blackMarket.Add(7, 0);
+            blackMarket.Add(8, 1);
+            blackMarket.Add(9, 0);
+            blackMarket.Add(10, 0);
+            blackMarket.Add(11, 1);
+            blackMarket.Add(12, 0);
+            blackMarket.Add(13, 1);
+            blackMarket.Add(14, 1);
+            blackMarket.Add(15, 1);
+            blackMarket.Add(16, 1);
+            blackMarket.Add(17, 0);
+            blackMarket.Add(18, 0);
+            blackMarket.Add(19, 0);
+            blackMarket.Add(20, 1);
+            blackMarket.Add(21, 0);
+            blackMarket.Add(22, 1);
+            blackMarket.Add(23, 1);
+            blackMarket.Add(24, 0);
+            blackMarket.Add(25, 1);
+            blackMarket.Add(26, 1);
+            blackMarket.Add(27, 1);
+            blackMarket.Add(28, 1);
+            blackMarket.Add(29, 1);
+            blackMarket.Add(30, 0);
+            blackMarket.Add(31, 1);
+            blackMarket.Add(32, 1);
+            blackMarket.Add(33, 1);
+            blackMarket.Add(34, 2);
+            blackMarket.Add(35, 1);
+            blackMarket.Add(36, 1);
+            blackMarket.Add(37, 0);
+            blackMarket.Add(38, 0);
+            blackMarket.Add(39, 1);
+            blackMarket.Add(40, 0);
+            blackMarket.Add(41, 1);
+            blackMarket.Add(42, 1);
+            blackMarket.Add(43, 1);
+            blackMarket.Add(44, 1);
+            blackMarket.Add(45, 0);
+            blackMarket.Add(46, 1);
+            blackMarket.Add(47, 0);
+            blackMarket.Add(48, 0);
+            blackMarket.Add(49, 0);
+            blackMarket.Add(50, 1);
+            blackMarket.Add(51, 0);
+            blackMarket.Add(52, 0);
+            blackMarket.Add(53, 1);
+            blackMarket.Add(54, 0);
+            blackMarket.Add(55, 0);
+            blackMarket.Add(56, 0);
+            blackMarket.Add(57, 1);
+            blackMarket.Add(58, 0);
+            blackMarket.Add(59, 1);
+            blackMarket.Add(60, 1);
+            blackMarket.Add(61, 0);
+            blackMarket.Add(62, 1);
+            blackMarket.Add(63, 0);
+            blackMarket.Add(64, 1);
+            blackMarket.Add(65, 1);
+            blackMarket.Add(66, 0);
+            blackMarket.Add(67, 0);
+            blackMarket.Add(68, 0);
+            blackMarket.Add(69, 1);
+            blackMarket.Add(70, 0);
+            blackMarket.Add(71, 0);
+            blackMarket.Add(72, 0);
+            blackMarket.Add(73, 0);
+            blackMarket.Add(74, 1);
+            blackMarket.Add(75, 2);
+            blackMarket.Add(76, 0);
+            blackMarket.Add(77, 0);
+            blackMarket.Add(78, 0);
+            blackMarket.Add(79, 1);
+            blackMarket.Add(80, 1);
+            blackMarket.Add(81, 0);
+            blackMarket.Add(82, 0);
+            blackMarket.Add(83, 1);
+            blackMarket.Add(84, 0);
+            blackMarket.Add(85, 1);
+            blackMarket.Add(86, 0);
+            blackMarket.Add(87, 0);
+            blackMarket.Add(88, 0);
+            blackMarket.Add(89, 1);
+            blackMarket.Add(90, 1);
+            blackMarket.Add(91, 1);
+            blackMarket.Add(92, 1);
+            blackMarket.Add(93, 0);
+            blackMarket.Add(94, 1);
+            blackMarket.Add(95, 1);
+            blackMarket.Add(96, 0);
+            blackMarket.Add(97, 2);
+            blackMarket.Add(98, 1);
+            blackMarket.Add(99, 1);
+            blackMarket.Add(100, 0);
+            blackMarket.Add(101, 1);
+            blackMarket.Add(102, 0);
+            blackMarket.Add(103, 1);
+            blackMarket.Add(104, 0);
+            blackMarket.Add(105, 0);
+            blackMarket.Add(106, 0);
+            blackMarket.Add(107, 0);
+            blackMarket.Add(108, 0);
+            blackMarket.Add(109, 1);
+          
+
+        }
+
         private void InitData()
         {
             
-            StarSystem[] tempData = new StarSystem[starSystemNames.Count];
+            double[] check = new double[110];
+
+            int systemCounter = 0;
+
+            for (int i = 0; i < check.Length; i += 1)
+            {
+                check[i] = stationDistances[i];
+
+                systemCounter += 1;
+            }
+
+            StarSystem[] tempData = new StarSystem[systemCounter];
 
             foreach (KeyValuePair<int, string> system in starSystemNames)
             {
-                
-                tempData[system.Key]=new StarSystem();
-                    
-                tempData[system.Key].SystemID = system.Key;
-                tempData[system.Key].SystemName = system.Value;
+
+                    tempData[system.Key] = new StarSystem();
+
+                    tempData[system.Key].SystemID = system.Key;
+                    tempData[system.Key].SystemName = system.Value;
+
             }
 
             foreach (KeyValuePair<int, double[]> location in starSystemLocations)
             {
-                tempData[location.Key].Location = location.Value;
 
-                tempData[location.Key].SystemX = location.Value[0];
-                tempData[location.Key].SystemY = location.Value[1];
-                tempData[location.Key].SystemZ = location.Value[2];
+                    tempData[location.Key].Location = location.Value;
+
+                    tempData[location.Key].SystemX = location.Value[0];
+                    tempData[location.Key].SystemY = location.Value[1];
+                    tempData[location.Key].SystemZ = location.Value[2];
+
             }
 
             foreach (KeyValuePair<int, string> station in stationNames)
             {
-                tempData[station.Key].StationName = station.Value;
+ 
+
+                    tempData[station.Key].StationName = station.Value;
+
             }
 
             foreach (KeyValuePair<int, int> distance in stationDistances)
             {
-                tempData[distance.Key].StationDistance = distance.Value;
+
+
+                    tempData[distance.Key].StationDistance = distance.Value;
+
             }
 
             foreach (KeyValuePair<int, string> goods in goodsNames)
             {
-                tempData[goods.Key].GoodsName = goods.Value;
+
+
+                    tempData[goods.Key].GoodsName = goods.Value;
+
             }
 
             foreach (KeyValuePair<int, int> prices in goodsPrices)
             {
-                tempData[prices.Key].GoodsPrices = prices.Value;
+
+
+                    tempData[prices.Key].GoodsPrices = prices.Value;
+
             }
 
             foreach (KeyValuePair<int,int[]> amount in goodsAmount)
             {
-                tempData[amount.Key].AmountTable = amount.Value;
 
-                tempData[amount.Key].MinAmount = amount.Value[0];
-                tempData[amount.Key].MaxAmount = amount.Value[1];
-                
+
+                    tempData[amount.Key].AmountTable = amount.Value;
+
+                    tempData[amount.Key].MinAmount = amount.Value[0];
+                    tempData[amount.Key].MaxAmount = amount.Value[1];
+
             }
+
+            foreach (KeyValuePair<int, int> hasMarket in blackMarket)
+            {
+
+                    tempData[hasMarket.Key].blackMarket = hasMarket.Value;
+
+            }
+
             starSystemDataSet = starSystemNames.ToDictionary(system => tempData[system.Key].SystemID, system => tempData[system.Key]);
 
             tempData = null;
         }
 
+         
 
-        public Dictionary<int, StarSystem> starSystemDataSet { get; set; }
+    public Dictionary<int, StarSystem> starSystemDataSet { get; set; }
     }
 
     public class StarSystem
@@ -914,26 +1067,24 @@ namespace RareGoods.RawData
         public double[] Location { get; set; }
 
         public double[] DistanceTable { get; set; }
+
+        public double[] DistanceXTable { get; set; }
+        public double[] DistanceYTable { get; set; }
+        public double[] DistanceZTable { get; set; }
+
         public int[] SortedSystems { get; set; }
         public double[] SortedDistances { get; set; }
-
         public string[] DisplayDistances { get; set; }
         public string DisplaySystem { get; set; }
         public string DisplayStation { get; set; }
         public string DisplayGoods { get; set; }
-
-        public double[] VectorXTable { get; set; }
-        public double[] VectorYTable { get; set; }
-        public double[] VectorZTable { get; set; }
-
-        public double[] HeadingTable { get; set; }
 
         public double SystemX { get; set; }
         public double SystemY { get; set; }
         public double SystemZ { get; set; }
 
         public double StationDistance { get; set; }
-
+        public int blackMarket { get; set; }
         public int GoodsPrices { get; set; }
         public int[] AmountTable { get; set; }
         public int MinAmount { get; set; }
